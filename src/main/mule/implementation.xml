@@ -15,7 +15,7 @@ output application/json
 vars.id]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<set-payload value="#[p('default.message') ++ &quot; &quot; ++ &quot;How're you&quot;]" doc:name="Hello" doc:id="206f0584-9f5b-4c74-8a93-c7af18839b17" />
+		<set-payload value="#[p('default.message') ++ &quot; &quot; ++ &quot;Welcome to the World&quot;]" doc:name="Hello" doc:id="206f0584-9f5b-4c74-8a93-c7af18839b17" />
 		<logger level="INFO" doc:name="flow ends" doc:id="11ae2216-3d76-4541-9ea1-af1cfdea0aed" message='#["flow ends" ++ now()]'/>
 	</flow>
 </mule>
