@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="implementationFlow" doc:id="2d41ed4e-0f6c-4e59-8162-d8bfbba706a5" >
+		<logger level="INFO" doc:name="Flow Starts" doc:id="5b8444ac-5f30-4949-87a5-5a77b5777812" message='#["flow starts" ++ now()]'/>
+		<set-variable value="#[attributes.queryParams.id]" doc:name="id" doc:id="f1969d3f-5c3f-44e5-826e-b4a8f54040ae" variableName="id"/>
+		<ee:transform doc:name="vars.id" doc:id="52f5a8f4-3cc9-439c-9d82-18ff9a7ee156" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+vars.id]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-payload value="#[p('default.message') ++ &quot; &quot; ++ &quot;How're you&quot;]" doc:name="Hello" doc:id="206f0584-9f5b-4c74-8a93-c7af18839b17" />
+		<logger level="INFO" doc:name="flow ends" doc:id="11ae2216-3d76-4541-9ea1-af1cfdea0aed" message='#["flow ends" ++ now()]'/>
+	</flow>
+</mule>

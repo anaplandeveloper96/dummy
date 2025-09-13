@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<configuration doc:name="Configuration" doc:id="8d6616ee-b84d-4cb8-9da3-ed7d2444d0a1" defaultErrorHandler-ref="globalErrorHandlerError_Handler" />
+	<configuration-properties doc:name="Configuration properties" doc:id="feed689a-2ed7-4f95-a824-9bc75500015c" file="dev.properties" />
+	<api-gateway:autodiscovery apiId="20513860" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="68acbdd0-aedd-472f-86b7-bad3b46a9831" flowRef="dummy-apiFlow" />
+	<error-handler name="globalErrorHandlerError_Handler" doc:id="da6a71f7-4753-409a-9726-277f40d48bd8" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="349d679d-de28-4012-96c0-5f2a467812ef" >
+			<ee:transform doc:name="Transform Message" doc:id="09b847a9-c85f-47c0-b4ed-fcd5a309ec2b" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"status": "error",
+	"statusCode": error.description
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="55ba5b00-1365-4610-99ec-7bfc6c8a1b95" />
+		</on-error-propagate>
+	</error-handler>
+</mule>
